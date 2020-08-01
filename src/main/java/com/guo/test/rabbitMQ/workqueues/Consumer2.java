@@ -18,6 +18,10 @@ public class Consumer2 {
 	// 消息队列名称
 	private String queueName = "test";
 	
+	/**
+	 * 消费消息
+	 * @throws IOException
+	 */
 	public void receive() throws IOException {
 		// 获取连接对象
 		Connection connection = RabbitMQUtil.getConnection();
