@@ -12,7 +12,7 @@ import com.rabbitmq.client.AMQP.BasicProperties;
 
 /**
  * 测试第三种消息模型：订阅模型-Fanout（Publish/Subscribe）-- 消费者
- * 效果：每个队列都会收到一份消息内容
+ * 效果：每个队列都会收到一份消息内容（广播）
  */
 public class Consumer {
 

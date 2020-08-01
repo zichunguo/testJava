@@ -12,7 +12,7 @@ import com.rabbitmq.client.AMQP.BasicProperties;
 
 /**
  * 测试第四种消息模型：订阅模型-Direct（Routing）-- 消费者
- * 效果：根据路由key，exchange 将消息发到对应的消息队列
+ * 效果：根据路由key，exchange 将消息发到对应的消息队列（路由）
  */
 public class Consumer {
 	
