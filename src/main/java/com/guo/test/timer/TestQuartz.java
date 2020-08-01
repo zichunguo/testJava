@@ -18,7 +18,7 @@ public class TestQuartz {
 	public static void testQuartz() throws SchedulerException {
 		// 1.创建调度器 Scheduler
 		Scheduler scheduler = StdSchedulerFactory.getDefaultScheduler();
-		// 2.创建JobDetail实例(工作对象)，并与定义的Job类绑定(Job执行内容)
+		// 2.创建JobDetail实例(工作对象)，并与定义的Job类绑定(Job执行内容)-任务对象
 		JobDetail job = JobBuilder.newJob(TestQuartzJob.class)
 				.withDescription("job 描述")
 				.withIdentity("job1", "group1")
