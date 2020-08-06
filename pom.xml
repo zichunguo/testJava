@@ -14,9 +14,35 @@
 		<zookeeper.version>3.6.1</zookeeper.version>
 		<log4j.version>2.12.1</log4j.version>
 		<quartz.version>2.3.0</quartz.version>
+		<rabbitmq.version>5.9.0</rabbitmq.version>
+		<kafka.version>2.5.0</kafka.version>
+		<cglib.version>3.3.0</cglib.version>
 	</properties>
 	
 	<dependencies>
+		<dependency>
+	      <groupId>cglib</groupId>
+	      <artifactId>cglib</artifactId>
+	      <version>${cglib.version}</version>
+	    </dependency>
+		<!-- kafka 依赖 -->
+		<dependency>
+	   		<groupId>org.apache.kafka</groupId>
+	   		<artifactId>kafka-clients</artifactId>
+	   		<version>${kafka.version}</version>
+	   	</dependency>
+	   	<dependency>
+	   		<groupId>org.apache.kafka</groupId>
+	   		<artifactId>kafka-streams</artifactId>
+	   		<version>${kafka.version}</version>
+	   	</dependency>
+		<!-- rabbitmq 依赖 -->
+		<dependency>
+		    <groupId>com.rabbitmq</groupId>
+		    <artifactId>amqp-client</artifactId>
+		    <version>${rabbitmq.version}</version>
+		</dependency>
+		<!-- quartz 依赖 -->
 		<dependency>
 		  <groupId>org.quartz-scheduler</groupId>
 		  <artifactId>quartz</artifactId>
