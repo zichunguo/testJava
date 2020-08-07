@@ -2,21 +2,25 @@ package com.guo.test.kafka.consumer;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Properties;
 
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.OffsetAndMetadata;
+import org.apache.kafka.clients.consumer.OffsetCommitCallback;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.TopicPartition;
 import org.apache.kafka.common.serialization.StringDeserializer;
 
 /**
- * 测试 Kafka 消费者
+ * 测试手动提交的 Kafka 消费者
  * @author chun
  *
  */
-public class TestConsumer {
+public class CommitConsumer {
 
 	// Kafka 服务地址
 	private static final String BROKER_LIST = "127.0.0.1:9092";
@@ -88,11 +92,27 @@ public class TestConsumer {
 			for (ConsumerRecord<String, String> record : records) {
 				System.out.println("消费者 ，topic：" + record.topic() + "，分区（partition）：" + record.partition() + "，key：" + record.key() + "，value:" + record.value());
 			}
+			// 测试手动提交，需要将上面配置中 ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG 设置为 false
+			// 手动提交-同步提交
+//			consumer.commitSync();
+			// 手动提交-异步提交
+//			consumer.commitAsync();
+			consumer.commitAsync(new OffsetCommitCallback() {
+				
+				@Override
+				public void onComplete(Map<TopicPartition, OffsetAndMetadata> offsets, Exception exception) {
+					if (exception == null) {
+						System.out.println("commit success for " + offsets);
+					} else {
+						System.out.println("commit failed for " + offsets);
+					}
+				}
+			});
 		}
 	}
 	
 	public static void main(String[] args) {
-		TestConsumer consumer = new TestConsumer();
+		CommitConsumer consumer = new CommitConsumer();
 		consumer.poll("test");
 //		consumer.pollOfCommit("test");
 	}

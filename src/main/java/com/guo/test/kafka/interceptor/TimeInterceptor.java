@@ -19,7 +19,6 @@ public class TimeInterceptor implements ProducerInterceptor<String, String> {
 		// 1、获取消息内容 value
 		String value = record.value();
 		value = System.currentTimeMillis() + "--" + value;
-		System.out.println(value);
 		return new ProducerRecord<String, String>(record.topic(), record.partition(), record.key(), value);
 	}
 

@@ -20,7 +20,7 @@ public class CounterInterceptor implements ProducerInterceptor<String, String> {
 	@Override
 	public ProducerRecord<String, String> onSend(ProducerRecord<String, String> record) {
 		// TODO Auto-generated method stub
-		return null;
+		return record;
 	}
 
 	@Override

@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.clients.producer.RecordMetadata;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 public class InterceptorProducer {
@@ -72,25 +70,12 @@ public class InterceptorProducer {
 	public void send(String topic, String message) {
 		ProducerRecord<String, String> record = new ProducerRecord<String, String>(topic, message);
 		// 发送方式一、简单的发送数据方法
-//		producer.send(record);
-		// 发送方式二、使用带有回调函数的发送数据方法
-		producer.send(record, new Callback() {
-			@Override
-			public void onCompletion(RecordMetadata metadata, Exception exception) {
-				if (null == exception){
-					System.out.println(String.format("offset:%s, partition:%s", metadata.offset(), metadata.partition()));
-                }else {
-                	System.out.println("send error" + exception.getMessage());
-                }
-			}
-		});
-		// 不在此处关闭，producer 是静态对象，类初始化时构建的，如果关闭后续不能再使用该对象
-//		producer.close();
+		producer.send(record);
 		System.out.println("生产者，topic：" + topic + "，value：" + message);
 	}
 	
 	public static void main(String[] args) {
-		TestProducer producer = new TestProducer();
+		InterceptorProducer producer = new InterceptorProducer();
 		for (int i = 0; i < 10; i++) {
 			producer.send("test", "d" + i);
 		}
